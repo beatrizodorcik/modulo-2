@@ -1,0 +1,32 @@
+Atividade 1
+Explique com suas palavras e cite exemplos utilizando no mínimo 2 linhas para cada alternativa.
+
+Select: Comando que seleciona e exibe os registros já inseridos, podendo colocar parâmetros para a exibição. Por exemplo: SELECT * FROM clientes;
+
+Insert: Comando utilizado para “popular” a tabela criada. Por exemplo: INSERT INTO nome-da-tabela (atributo1, atributo2, atributo3) VALUES ("atributo1"," atributo2", “atributo3”); (considerando que são varchar)
+
+Update: Comando utilizado para alterar um registro. Por exemplo: UPDATE clientes SET numEmpregados=1999 WHERE idCliente = 1;
+
+Delete: Comando para deletar um registro. Por exemplo: DELETE FROM nome-da-tabela WHERE nome-da-coluna=texto;
+
+Create Table: Comando utilizado para criar uma tabela (após criar uma database) por exemplo: CREATE TABLE nome-da-tabela;
+
+Drop Table: Comando utilizado para excluir uma tabela da DB, por exemplo: DROP TABLE nome-da-tabela;
+
+Alter Table: Comando utilizado para alterar ou adicionar informações na tabela, por exemplo: ALTER TABLE 
+
+
+
+
+Atividade 2
+Informe pelo menos 5 tipagens utilizadas no Mysql e diga a sua equivalência em Java (ex: varchar = String)
+
+a) Int = Int
+
+b) Boolean = boolean
+
+c) Float = float
+
+d) Varchar = string 
+
+e) Char = string/char 
