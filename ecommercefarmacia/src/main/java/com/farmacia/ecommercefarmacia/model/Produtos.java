@@ -1,38 +1,29 @@
 package com.farmacia.ecommercefarmacia.model;
 
-import java.util.List;
-
-import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.OneToMany;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
-import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.Size;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-
+import com.sun.istack.NotNull;
 
 @Entity
-@Table(name = "db_categoria")
-public class Categoria {
+@Table(name = "tb_produtos")
+public class Produtos {
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private long id;
 	
-	@NotBlank
-	@Size(min = 5, max = 150)
+	@NotNull
 	private String descricao;
 	
-	private boolean ativo;
-	
-	@OneToMany(mappedBy = "categoria", cascade = CascadeType.ALL)
+	@ManyToOne
 	@JsonIgnoreProperties("categoria")
-	private List<Produtos> produtos;
-
+	private Categoria categoria;
 
 	public long getId() {
 		return id;
@@ -50,20 +41,12 @@ public class Categoria {
 		this.descricao = descricao;
 	}
 
-	public boolean isAtivo() {
-		return ativo;
+	public Categoria getCategoria() {
+		return categoria;
 	}
 
-	public void setAtivo(boolean ativo) {
-		this.ativo = ativo;
+	public void setCategoria(Categoria categoria) {
+		this.categoria = categoria;
 	}
 
-	public List<Produtos> getProdutos() {
-		return produtos;
-	}
-
-	public void setProdutos(List<Produtos> produtos) {
-		this.produtos = produtos;
-	}
-	
 }
