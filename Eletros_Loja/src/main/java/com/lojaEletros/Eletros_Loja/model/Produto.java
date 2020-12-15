@@ -1,46 +1,59 @@
 package com.lojaEletros.Eletros_Loja.model;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+import javax.validation.constraints.Min;
+import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Size;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.sun.istack.NotNull;
 
 @Entity
-@Table(name = "tb_produto")
+@Table(name="tb_produto")
 public class Produto {
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private long id;
-	
-	@Size(min = 5, max = 50)
+	@Column(name="id")
+	private long produtoId;
+
+	@NotBlank
+	@Size(min=2, max=50)
 	private String nome;
 	
 	@NotNull
 	private double preco;
 	
 	@NotNull
+	@Min(0)
 	private int quantidade;
 	
-	@Size(min = 2, max = 20)
+	@NotBlank
+	@Size(min=2, max=50)
 	private String marca;
 	
+	
 	@ManyToOne
-	@JsonIgnoreProperties("categoria")
-	private Categoria categoria;
-
-	public long getId() {
-		return id;
+	@JsonIgnoreProperties("produtoModel")
+	private Categoria categoriaModel;
+	
+	@ManyToOne
+	@JsonIgnoreProperties("produtoModel")
+	private TipoEletro tipoEletroModel;
+	
+	
+	public long getProdutoId() {
+		return produtoId;
 	}
 
-	public void setId(long id) {
-		this.id = id;
+	public void setProdutoId(long produtoId) {
+		this.produtoId = produtoId;
 	}
 
 	public String getNome() {
@@ -73,6 +86,21 @@ public class Produto {
 
 	public void setMarca(String marca) {
 		this.marca = marca;
-	}	
+	}
 
+	public Categoria getCategoriaModel() {
+		return categoriaModel;
+	}
+
+	public void setCategoriaModel(Categoria categoriaModel) {
+		this.categoriaModel = categoriaModel;
+	}
+
+	public TipoEletro getTipoEletroObj() {
+		return tipoEletroModel;
+	}
+
+	public void setTipoEletroObj(TipoEletro tipoEletroModel) {
+		this.tipoEletroModel = tipoEletroModel;
+	}
 }

@@ -20,43 +20,43 @@ import com.lojaEletros.Eletros_Loja.repository.ProdutoRepository;
 
 @RestController
 @RequestMapping("/produto")
-@CrossOrigin("*")
+@CrossOrigin(value="*", allowedHeaders="*")
 public class ProdutoController {
-	
 	@Autowired
-	private ProdutoRepository repository;
+	private ProdutoRepository repositorio;
 	
 	@GetMapping
-	public ResponseEntity<List<Produto>> GetAll(){
-		return ResponseEntity.ok(repository.findAll());
-	}
-	@GetMapping("/{id}")
-	public ResponseEntity<Produto> getById(@PathVariable long id){
-		
-		return repository.findById(id).map(resp -> ResponseEntity.ok(resp))
-				.orElse(ResponseEntity.badRequest().build());
+	public ResponseEntity<List<Produto>> Todos(){
+		return ResponseEntity.ok(repositorio.findAll());
 	}
 	
-	@GetMapping("/preco")
-	public ResponseEntity<Produto> getByPreco (@PathVariable double preco){
-		return (ResponseEntity<Produto>) repository.findByPreco(preco);
+	@GetMapping("/{produtoId}")
+	public ResponseEntity<Produto> PorId(@PathVariable long produtoId){
+		return repositorio.findById(produtoId).map(resp -> ResponseEntity.ok(resp)).orElse(ResponseEntity.badRequest().build());
 	}
 	
+	@GetMapping("/porRange/{valor1}/{valor2}")
+	public ResponseEntity<List<Produto>> TodosRange(@PathVariable double valor1, @PathVariable double valor2){
+		return ResponseEntity.ok(repositorio.RangePreco(valor1, valor2));
+	}
+	
+	@GetMapping("/porTipo/{tipoId}/{valor}")
+	public ResponseEntity<List<Produto>> TodosRangeTipo(@PathVariable int tipoId, @PathVariable double valor){
+		return ResponseEntity.ok(repositorio.RangePrecoTipo(tipoId, valor));
+	}
 	
 	@PostMapping
-	public ResponseEntity<Produto> post(@RequestBody Produto produto){
-		return ResponseEntity.status(HttpStatus.CREATED).body(repository.save(produto));
+	public ResponseEntity<Produto> post (@RequestBody Produto post){
+		return ResponseEntity.status(HttpStatus.CREATED).body(repositorio.save(post));
 	}
 	
 	@PutMapping
-	public ResponseEntity<Produto> put (@RequestBody Produto produto){
-		return ResponseEntity.ok(repository.save(produto));
+	public ResponseEntity<Produto> put(@RequestBody Produto put){
+		return ResponseEntity.status(HttpStatus.ACCEPTED).body(repositorio.save(put));
 	}
-
 	
-	@DeleteMapping ("/{id}")
-	public void delete(@PathVariable long id) {
-		repository.deleteById(id);
+	@DeleteMapping("/{produtoId}")
+	public void DeletarPorId(@PathVariable long produtoId) {
+		repositorio.deleteById(produtoId);
 	}
-
 }

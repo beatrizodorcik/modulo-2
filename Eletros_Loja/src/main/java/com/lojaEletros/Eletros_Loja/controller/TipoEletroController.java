@@ -20,36 +20,34 @@ import com.lojaEletros.Eletros_Loja.repository.TipoEletroRepository;
 
 
 @RestController
-@RequestMapping("/eletro")
-@CrossOrigin("*")
+@RequestMapping("/tipo")
+@CrossOrigin(value="*", allowedHeaders="*")
 public class TipoEletroController {
-	
 	@Autowired
-	private TipoEletroRepository repository;
+	private TipoEletroRepository repositorio;
 	
 	@GetMapping
-	public ResponseEntity<List<TipoEletro>> GetAll(){
-		return ResponseEntity.ok(repository.findAll());
+	public ResponseEntity<List<TipoEletro>> Todos(){
+		return ResponseEntity.ok(repositorio.findAll());
 	}
+	
 	@GetMapping("/{id}")
-	public ResponseEntity<TipoEletro> getById(@PathVariable long id){
-		
-		return repository.findById(id).map(resp -> ResponseEntity.ok(resp))
-				.orElse(ResponseEntity.badRequest().build());
+	public ResponseEntity<TipoEletro> PegarPorID(@PathVariable int id){
+		return repositorio.findById((long) id).map(resp -> ResponseEntity.ok(resp)).orElse(ResponseEntity.badRequest().build());
 	}
+	
 	@PostMapping
-	public ResponseEntity<TipoEletro> post(@RequestBody TipoEletro eletro){
-		return ResponseEntity.status(HttpStatus.CREATED).body(repository.save(eletro));
+	public ResponseEntity<TipoEletro> post (@RequestBody TipoEletro post){
+		return ResponseEntity.status(HttpStatus.CREATED).body(repositorio.save(post));
 	}
 	
 	@PutMapping
-	public ResponseEntity<TipoEletro> put(@RequestBody TipoEletro eletro){
-		return ResponseEntity.status(HttpStatus.OK).body(repository.save(eletro));
-	}
-	
-	@DeleteMapping ("/{id}")
-	public void delete(@PathVariable long id) {
-		repository.deleteById(id);
+	public ResponseEntity<TipoEletro> put (@RequestBody TipoEletro put){
+		return ResponseEntity.status(HttpStatus.ACCEPTED).body(repositorio.save(put));
 	}
 
+	@DeleteMapping("/{id}")
+	public void DeletarPorID(@PathVariable int id) {
+		repositorio.deleteById((long) id);
+	}
 }

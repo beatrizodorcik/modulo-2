@@ -20,36 +20,33 @@ import com.lojaEletros.Eletros_Loja.repository.CategoriaRepository;
 
 @RestController
 @RequestMapping("/categoria")
-@CrossOrigin("*")
+@CrossOrigin(value="*", allowedHeaders="*")
 public class CategoriaController {
-	
 	@Autowired
-	private CategoriaRepository repository;
+	private CategoriaRepository repositorio;
 	
 	@GetMapping
-	public ResponseEntity<List<Categoria>> GetAll(){
-		return ResponseEntity.ok(repository.findAll());
+	public ResponseEntity<List<Categoria>> Todos(){
+		return ResponseEntity.ok(repositorio.findAll());
 	}
-	@GetMapping("/{id}")
-	public ResponseEntity<Categoria> getById(@PathVariable long id){
-		
-		return repository.findById(id).map(resp -> ResponseEntity.ok(resp))
-				.orElse(ResponseEntity.badRequest().build());
+	
+	@GetMapping("/{categoriaId}")
+	public ResponseEntity<Categoria> PorID(@PathVariable long categoriaId){
+		return repositorio.findById(categoriaId).map(resp -> ResponseEntity.ok(resp)).orElse(ResponseEntity.badRequest().build());
 	}
+
 	@PostMapping
-	public ResponseEntity<Categoria> post(@RequestBody Categoria categoria){
-		return ResponseEntity.status(HttpStatus.CREATED).body(repository.save(categoria));
+	public ResponseEntity<Categoria> post (@RequestBody Categoria post){
+		return ResponseEntity.status(HttpStatus.CREATED).body(repositorio.save(post));
 	}
 	
 	@PutMapping
-	public ResponseEntity<Categoria> put (@RequestBody Categoria categoria){
-		return ResponseEntity.ok(repository.save(categoria));
+	public ResponseEntity<Categoria> put (@RequestBody Categoria put){
+		return ResponseEntity.status(HttpStatus.ACCEPTED).body(repositorio.save(put));
 	}
-
 	
-	@DeleteMapping ("/{id}")
-	public void delete(@PathVariable long id) {
-		repository.deleteById(id);
+	@DeleteMapping("/{categoriaId}")
+	public void DeletePorId(@PathVariable long categoriaId){
+		repositorio.deleteById(categoriaId);
 	}
-
 }
