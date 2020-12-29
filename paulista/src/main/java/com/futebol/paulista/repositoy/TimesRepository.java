@@ -12,3 +12,4 @@ public interface TimesRepository extends JpaRepository<Times, Long> {
 	public List<Times> findAllByTimesContainingIgnoreCase (String divisao);
 
 }
+
