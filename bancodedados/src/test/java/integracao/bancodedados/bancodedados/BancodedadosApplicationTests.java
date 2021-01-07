@@ -1,10 +1,10 @@
-package com.farmacia.ecommercefarmacia;
+package integracao.bancodedados.bancodedados;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 
 @SpringBootTest
-class EcommercefarmaciaApplicationTests {
+class BancodedadosApplicationTests {
 
 	@Test
 	void contextLoads() {
